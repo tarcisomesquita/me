@@ -42,22 +42,14 @@ a:active  {color:#2160DE; text-decoration:underline;} /* selected link   */
 <p><a href="https://www2.fc.unesp.br/experimentosdefisica/fte_list.htm">Experimentos de Física</a> (coautoria)</p>
 
 <br />
+
 <br />
 <iframe name="hiddenFrame" style="visibility:hidden"></iframe>
 <form name="formlog" enctype="application/x-www-form-urlencoded"action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeH6hDfEOI6jvgDsdkuuUeah_FU3dPGxZZr-sBBkIjj4Hkwog/formResponse" method="POST" target="hiddenFrame">
 <input id="texto" name="entry.667481942" type="hidden">
 </form>
-
 <script>
-var info = '\nhref: ' + window.location.href + 
-           '\nreferrer: ' + document.referrer + 
-           '\nuserAgent: ' + navigator.userAgent + 
-           '\nscreen.width: ' + screen.width + 
-           '\nscreen.height: ' + screen.height + 
-           '\ninnerWidth: ' + innerWidth + 
-           '\ninnerHeight: ' + innerHeight + 
-           '\ndeviceMemory: ' + navigator.deviceMemory + 'GiB of RAM';
-
+var info = window.location.href;
 document.getElementById("texto").value = info;
 document.forms.formlog.submit();
 </script>
