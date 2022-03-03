@@ -57,7 +57,16 @@ a:active  {color:#2160DE; text-decoration:underline;} /* selected link   */
 <input id="texto" name="entry.667481942" type="hidden">
 </form>
 <script>
-var info = window.location.href;
+var info = 'href: ' + window.location.href + 
+           '\nreferrer: ' + document.referrer + 
+           '\nhistory.length: ' + history.length + 
+           '\nuserAgent: ' + navigator.userAgent + 
+           '\nscreen.width: ' + screen.width + 
+           '\nscreen.height: ' + screen.height + 
+           '\ninnerWidth: ' + innerWidth + 
+           '\ninnerHeight: ' + innerHeight + 
+           '\ndeviceMemory: ' + navigator.deviceMemory + 'GiB of RAM';
+
 document.getElementById("texto").value = info;
 document.forms.formlog.submit();
 </script>
