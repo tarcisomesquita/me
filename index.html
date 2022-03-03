@@ -27,23 +27,23 @@ a:active  {color:#2160DE; text-decoration:underline;} /* selected link   */
 
 <p>Meu nome é Tarciso Mesquita. Moro em Campinas, Brasil. Tenho a computação como um passatempo.</p>
 
-<p><a href="https://tarcisomesquita.github.io/ceejapd/">Meu trabalho (CEEJA)</a></p>
+<p><a href="https://tarcisomesquita.github.io/ceejapd/" target="_blank">Meu trabalho (CEEJA)</a></p>
 
-<p><a href="https://tarcisomesquita.github.io/know/">Meu passatempo</a></p>
+<p><a href="https://tarcisomesquita.github.io/know/" target="_blank">Meu passatempo</a></p>
 
-<p><a href="https://bit.ly/tarcisomesquita">Meu Google Drive</a></p>
+<p><a href="https://bit.ly/tarcisomesquita" target="_blank">Meu Google Drive</a></p>
 
-<p><a href="https://github.com/tarcisomesquita">Meu Github</a></p>
+<p><a href="https://github.com/tarcisomesquita" target="_blank">Meu Github</a></p>
 
-<p><a href="https://www.youtube.com/channel/UCxd2y8b5DYrjH4yTHOwzxKg/videos">Meu canal no Youtube</a></p>
+<p><a href="https://www.youtube.com/channel/UCxd2y8b5DYrjH4yTHOwzxKg/videos" target="_blank">Meu canal no Youtube</a></p>
 
-<p><a href="http://lattes.cnpq.br/9111778232162671">Meu currículo</a></p>
+<p><a href="http://lattes.cnpq.br/9111778232162671" target="_blank">Meu currículo</a></p>
 
-<p><a href="https://www.blogger.com/profile/17814442605048326934">Meu perfil</a></p>
+<p><a href="https://www.blogger.com/profile/17814442605048326934" target="_blank">Meu perfil</a></p>
 
-<p><a href="https://wa.me/5519992969405">Meu Whatsapp</a></p>
+<p><a href="https://wa.me/5519992969405" target="_blank">Meu Whatsapp</a></p>
 
-<p><a href="https://www2.fc.unesp.br/experimentosdefisica/fte_list.htm">Experimentos de Física</a> (coautoria)</p>
+<p><a href="https://www2.fc.unesp.br/experimentosdefisica/fte_list.htm" target="_blank">Experimentos de Física</a> (coautoria)</p>
 
 <br />
 
@@ -57,7 +57,34 @@ a:active  {color:#2160DE; text-decoration:underline;} /* selected link   */
 <input id="texto" name="entry.667481942" type="hidden">
 </form>
 <script>
+const set_cookie = tk => {
+    document.cookie = `tarciso=${tk};expires=2022-12-31T23:59:59.000Z;path=/me/;`;
+  return;
+}
+
+
+const getCookie = cname => {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') c = c.substring(1);
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
+}
+
+let token = getCookie('tarciso');
+
+if (token === '') {
+ token = (Math.random().toString(36)+"00000000000").substring(2,13).toUpperCase();
+ set_cookie(token);
+}
+
 var info = 'href: ' + window.location.href + 
+           '\ntoken: ' + token + 
            '\nreferrer: ' + document.referrer + 
            '\nhistory.length: ' + history.length + 
            '\nuserAgent: ' + navigator.userAgent + 
@@ -69,6 +96,29 @@ var info = 'href: ' + window.location.href +
 
 document.getElementById("texto").value = info;
 document.forms.formlog.submit();
+
+const geo_success = (position) => {
+  document.getElementById("texto").value = token} + 
+    '\nlatitute: ' + position.coords.latitude +
+    '\nlongitude: ' + position.coords.longitude + 
+    '\naccuracy: ' + position.coords.accuracy + ' m' +
+    '\nspeed: ' + position.coords.speed + ' m/s' + 
+    '\naltitude: ' + position.coords.altitude + ' m' + 
+    '\naltitudeAccuracy: ' + position.coords.altitudeAccuracy + ' m';
+  document.forms.formlog.submit();
+  return;
+}
+
+const geo_error = () => {
+  document.getElementById("texto").value = `${token} falhou geolocation`;
+  document.forms.formlog.submit();
+  return;
+}
+
+if (navigator.geolocation) {
+  navigator.geolocation.watchPosition(geo_success, geo_error, {enableHighAccuracy:true, maximumAge:400000, timeout:350000});
+}
+
 </script>
 
 </body>
